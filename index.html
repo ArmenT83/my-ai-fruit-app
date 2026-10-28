@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My AI Fruit Classifier</title>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; margin-top: 50px; background-color: #f4f4f9; }
+        h1 { color: #333; }
+        #imageUpload { padding: 10px; font-size: 16px; margin: 20px; border-radius: 5px; border: 1px solid #ccc; background-color: white;}
+        #imagePreview { max-width: 300px; max-height: 300px; margin-top: 20px; border-radius: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); display: none; }
+        #label-container { margin-top: 20px; font-size: 22px; font-weight: bold; }
+        .prediction { margin: 10px; padding: 10px; border-radius: 5px; background-color: #fff; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+    </style>
+</head>
+<body>
+
+    <h1>🍎 My AI Fruit Classifier 🍌</h1>
+    <p>Վերբեռնիր նկար և տես՝ AI-ը ինչ կասի։</p>
+
+    <input type="file" id="imageUpload" accept="image/*">
+    
+    <br>
+    <img id="imagePreview" alt="Uploaded Image">
+    
+    <div id="label-container"></div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@latest/dist/tf.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@teachablemachine/image@latest/dist/teachablemachine-image.min.js"></script>
+    
+    <script type="text/javascript">
+        const MODEL_URL = "./";
+
+        let model, labelContainer, maxPredictions;
+
+        async function init() {
+            const modelURL = MODEL_URL + "model.json";
+            const metadataURL = MODEL_URL + "metadata.json";
+
+            model = await tmImage.load(modelURL, metadataURL);
+            maxPredictions = model.getTotalClasses();
+            labelContainer = document.getElementById("label-container");
+            
+            for (let i = 0; i < maxPredictions; i++) {
+                let div = document.createElement("div");
+                div.className = "prediction";
+                labelContainer.appendChild(div);
+            }
+        }
+
+        document.getElementById("imageUpload").addEventListener("change", function(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+
+            const imagePreview = document.getElementById("imagePreview");
+            imagePreview.src = window.URL.createObjectURL(file);
+            imagePreview.style.display = "block";
+
+            imagePreview.onload = async function() {
+                if (!model) await init(); 
+                
+                const prediction = await model.predict(imagePreview);
+                
+                for (let i = 0; i < maxPredictions; i++) {
+                    const classPrediction = prediction[i].className + ": " + (prediction[i].probability * 100).toFixed(0) + "%";
+                    labelContainer.childNodes[i].innerHTML = classPrediction;
+                }
+            };
+        });
+
+        init();
+    </script>
+</body>
+</html>
