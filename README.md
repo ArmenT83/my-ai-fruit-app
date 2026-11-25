@@ -3,7 +3,9 @@
 A browser-based Image Classifier built with **TensorFlow.js** and **Teachable Machine**, deployed on GitHub Pages to test model robustness, feature extraction (shape vs. color), and decision boundary vulnerabilities in real-world scenarios.
 
 ## 🚀 Live Demo
-👉 **[Try to break the model here on GitHub Pages](ԱՅՍՏԵՂ ԴԻՐ ՔՈ ԼԻՆԿԸ)** 
+👉 **[Try to break the model here on GitHub Pages]www.linkedin.com/in/
+armen-t-961210413
+
 *(Try uploading a dog, a green banana, or a text-injected image to see how the AI reacts!)*
 
 ## 🎯 Project Overview & Security Research
