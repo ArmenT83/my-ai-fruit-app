@@ -64,4 +64,6 @@ Attack categories were originally referenced against the OWASP LLM Top 10 for co
 The model resists naive visual attacks (text injection, simple patch) but fails on out-of-distribution inputs with high confidence. The main lesson: **a confidence score is not a measure of correctness.** Robustness must be tested against what the model has *never seen*, not only against perturbations of known classes.
 
 ---
-*This research was performed on my own project. Feedback welcome — connect with me on [LinkedIn].*
+*This research was performed on my own project. Feedback welcome — connect with me on [LinkedIn]www.linkedin.com/in/
+armen-t-961210413
+.*
